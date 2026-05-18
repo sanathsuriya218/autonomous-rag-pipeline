@@ -36,7 +36,7 @@ The system learns from user feedback. Positive signals get stored and surfaced a
 
 ## Architecture
 
-'''
+
 User Query
 │
 ▼
@@ -56,7 +56,6 @@ LLM Generation (with dynamic few-shot examples)
 │
 ▼
 User Feedback → Learning Store → Future Queries
-'''
 
 ---
 
