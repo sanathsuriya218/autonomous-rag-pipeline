@@ -1,56 +1,58 @@
-# Self-Healing RAG System
+# autonomous-rag-pipeline
 
-<div align="center">
-
-![Self-Healing RAG](https://img.shields.io/badge/RAG-Self--Healing-blue)
-![Python](https://img.shields.io/badge/Python-3.10+-green)
-![React](https://img.shields.io/badge/React-18.3-61DAFB)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+[![RAG](https://img.shields.io/badge/RAG-Autonomous-blue)](https://github.com)
+[![Python](https://img.shields.io/badge/Python-3.10+-green)](https://python.org)
+[![React](https://img.shields.io/badge/React-18.3-61DAFB)](https://react.dev)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](https://opensource.org/licenses/MIT)
 
 **Advanced Retrieval-Augmented Generation with Closed-Loop Agents**
 
 *From Fragile Pipelines to Production-Ready Systems*
 
-[Features](#features) • [Architecture](#architecture) • [Installation](#installation) • [Usage](#usage) • [Technical Deep Dive](#technical-deep-dive)
+[Features](#features) • [Architecture](#architecture) • [Technical Deep Dive](#technical-deep-dive) • [Performance](#performance-metrics) • [API Reference](#api-reference)
 
-</div>
+---
 
 ## Overview
 
-This project implements a **production-ready Self-Healing RAG system** that goes beyond traditional retrieval-augmented generation. Unlike standard RAG's fragile open-loop architecture, this system implements closed-loop feedback at every stage to autonomously detect and correct errors.
+This project implements a **production-ready Autonomous RAG pipeline** that goes beyond traditional retrieval-augmented generation. Unlike standard RAG's fragile open-loop architecture, this system implements closed-loop feedback at every stage to autonomously detect and correct errors.
 
 ### The Problem with Standard RAG
 
 Standard RAG systems fail in production because:
+
 - **Modality Mismatch**: Short queries poorly match long documents
 - **Blind Trust**: No validation of retrieved document relevance
 - **Error Propagation**: Mistakes cascade from retrieval → generation
 - **Static Prompts**: No learning from successful interactions
 
-### Our Solution
+### The Solution
 
 A self-healing system with:
+
 - ✅ **HyDE**: Generate hypothetical documents for better retrieval
 - ✅ **Query Decomposition**: Break complex queries into atomic sub-questions
 - ✅ **CRAG**: Validate documents and trigger fallback strategies
 - ✅ **Cross-Encoder Reranking**: Precision document scoring
 - ✅ **Dynamic Learning**: Learn from successful query-answer pairs
 
+---
+
 ## Features
 
 ### Query Enhancement
-- **HyDE (Hypothetical Document Embeddings)**: Improves recall by 15-30%
+- **HyDE (Hypothetical Document Embeddings)**: Improves recall by 15–30%
 - **Query Decomposition**: Handles multi-part comparison questions
 - **Automatic Query Rewriting**: Optimizes for search engines
 
 ### Self-Correction Layer
-- **CRAG (Corrective RAG)**: Three-state document validation (correct/ambiguous/incorrect)
-- **Web Search Fallback**: Automatic external search when needed
+- **CRAG (Corrective RAG)**: Three-state document validation (correct / ambiguous / incorrect)
+- **Web Search Fallback**: Automatic external search when local retrieval fails
 - **Relevance Grading**: LLM-based document quality assessment
 
 ### Precision Ranking
 - **Two-Stage Retrieval**: Bi-encoder recall + Cross-encoder reranking
-- **Hybrid Architecture**: Balance speed (O(n)) with accuracy
+- **Hybrid Architecture**: Balances speed O(n) with accuracy
 - **Configurable Top-K**: Flexible result set sizes
 
 ### Continuous Learning
@@ -63,6 +65,8 @@ A self-healing system with:
 - **Architecture Diagrams**: Interactive Mermaid visualizations
 - **Statistics Dashboard**: System performance metrics
 - **Technical Documentation**: Comprehensive guides
+
+---
 
 ## Architecture
 
@@ -85,7 +89,7 @@ A self-healing system with:
 ┌─────────────────────────────────────────────────────────────┐
 │              2. Retrieval Layer (Bi-Encoder)                 │
 │            Fast Semantic Search - O(n)                       │
-│                 ↓ Top 50 Candidates                         │
+│                 ↓ Top 50 Candidates                          │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
@@ -102,7 +106,7 @@ A self-healing system with:
 ┌─────────────────────────────────────────────────────────────┐
 │            4. Reranking Layer (Cross-Encoder)                │
 │          Precision Scoring - Full Attention                  │
-│                 ↓ Top 5 Results                             │
+│                 ↓ Top 5 Results                              │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
@@ -125,173 +129,35 @@ A self-healing system with:
 ### Bi-Encoder vs Cross-Encoder
 
 | Aspect | Bi-Encoder | Cross-Encoder |
-|--------|------------|---------------|
+|---|---|---|
 | **Architecture** | Separate encoding | Joint encoding |
 | **Input** | Query → [768d], Doc → [768d] | [CLS] Query [SEP] Doc [SEP] |
 | **Scoring** | Cosine similarity | Direct prediction |
 | **Speed** | Fast (O(n) after pre-compute) | Slow (O(n×m)) |
 | **Accuracy** | Moderate | High |
-| **Use Case** | Initial recall (Top 50-100) | Precision reranking (Top 5-10) |
-
----
-
-## Installation
-
-### Prerequisites
-- Python 3.10+
-- Node.js 18+
-- OpenAI API Key
-
-### Backend Setup
-
-```bash
-# Clone the repository
-git clone <your-repo>
-cd self-healing-RAG
-
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Configure environment
-echo 'OPENAI_API_KEY=your-key-here' > .env
-```
-
-### Frontend Setup
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install Node dependencies
-npm install
-
-# Return to root
-cd ..
-```
-
----
-
-## Usage
-
-### Quick Start
-
-**Option 1: Use the startup script (Recommended)**
-
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-**Option 2: Manual startup**
-
-Terminal 1 (Backend):
-```bash
-source .venv/bin/activate
-cd backend
-python api_server.py
-```
-
-Terminal 2 (Frontend):
-```bash
-cd frontend
-npm run dev
-```
-
-### Access the Application
-
-- **Frontend**: http://localhost:3000
-- **API Docs**: http://localhost:8000/docs
-- **API Health**: http://localhost:8000/api/health
-
-### Testing the System
-
-1. **Playground Tab**: Enter queries and see real-time results
-2. **Architecture Tab**: Explore interactive system diagrams
-3. **Documentation Tab**: Learn about each technique
-4. **Statistics Tab**: Monitor system performance
-
-### Sample Queries
-
-```
-Simple:
-- "What is RAG and how does it work?"
-- "Explain HyDE technique"
-
-Complex (triggers decomposition):
-- "Compare HyDE and standard retrieval methods"
-- "Which is better: bi-encoder or cross-encoder?"
-
-Technical:
-- "How does CRAG improve retrieval quality?"
-- "Explain the self-correction mechanism"
-```
-
----
-
-## Configuration
-
-### Backend Configuration
-
-Edit `backend/api_server.py`:
-
-```python
-# Enable web search (requires Tavily API key)
-rag_system = SelfHealingRAGSystem(
-    openai_api_key=openai_api_key,
-    tavily_api_key=os.getenv("TAVILY_API_KEY"),
-    enable_web_search=True
-)
-```
-
-### Frontend Configuration
-
-Edit `frontend/vite.config.js` to change ports:
-
-```javascript
-export default defineConfig({
-  server: {
-    port: 3000,  // Change frontend port
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8000',  // Backend URL
-      }
-    }
-  }
-})
-```
-
-### Technique Toggles
-
-All techniques can be toggled in the Playground UI:
-- **HyDE**: Toggle hypothetical document generation
-- **Decomposition**: Enable/disable query splitting
-- **CRAG**: Turn validation on/off
-- **Reranking**: Use cross-encoder precision
-- **Learning**: Apply dynamic few-shot examples
+| **Use Case** | Initial recall (Top 50–100) | Precision reranking (Top 5–10) |
 
 ---
 
 ## Technical Deep Dive
 
-### 1. HyDE (Hypothetical Document Embeddings)
+### 1. HyDE — Hypothetical Document Embeddings
 
 **Problem**: Queries are short, documents are long → poor semantic match
 
 **Solution**: Generate a hypothetical answer, then search for documents similar to it
 
-```python
-# Traditional: "How does CRAG work?" → Vector Search
-# HyDE: "How does CRAG work?" → LLM generates hypothetical answer → Vector Search
+```
+Traditional: "How does CRAG work?" → Vector Search
+HyDE:        "How does CRAG work?" → LLM generates hypothetical answer → Vector Search
 ```
 
 **Benefits**:
-- Bridges modality gap
-- 15-30% improvement in recall
+- Bridges modality gap between query and document length
+- 15–30% improvement in recall
 - Works without retraining embeddings
+
+---
 
 ### 2. Query Decomposition
 
@@ -299,17 +165,19 @@ All techniques can be toggled in the Playground UI:
 
 **Solution**: Break into atomic sub-queries
 
-```python
+```
 Input: "Which is better, Llama-3 or GPT-4 for coding?"
 
 Sub-Queries:
-1. "Llama-3 coding capabilities and benchmarks"
-2. "GPT-4 coding performance metrics"
+  1. "Llama-3 coding capabilities and benchmarks"
+  2. "GPT-4 coding performance metrics"
 
 → Retrieve separately → Synthesize comparison
 ```
 
-### 3. CRAG (Corrective RAG)
+---
+
+### 3. CRAG — Corrective RAG
 
 **Problem**: Standard RAG blindly trusts retrieved documents
 
@@ -318,7 +186,7 @@ Sub-Queries:
 ```python
 for document in retrieved_docs:
     grade = llm.grade(document, query)
-    
+
     if grade == "correct":
         use_document()
     elif grade == "ambiguous":
@@ -328,13 +196,13 @@ for document in retrieved_docs:
 ```
 
 **Three States**:
-- ✅ **Correct**: Use as-is
-- ⚡ **Ambiguous**: Apply knowledge refinement
-- ❌ **Incorrect**: Web search fallback
+- ✅ **Correct** → Use as-is
+- ⚡ **Ambiguous** → Apply knowledge refinement
+- ❌ **Incorrect** → Web search fallback
+
+---
 
 ### 4. Cross-Encoder Reranking
-
-**Two-Stage Strategy**:
 
 ```
 Stage 1: Bi-Encoder
@@ -342,21 +210,16 @@ Stage 1: Bi-Encoder
 ├─ Fast cosine similarity: O(n)
 └─ Recall: Top 50 candidates
 
-Stage 2: Cross-Encoder  
+Stage 2: Cross-Encoder
 ├─ Encode [CLS] query [SEP] doc [SEP] together
 ├─ Full cross-attention between all tokens
 ├─ Precision scoring: O(n×m)
 └─ Final: Top 5 results
 ```
 
-**Why This Works**:
-- Bi-encoder speed for broad recall
-- Cross-encoder accuracy for final ranking
-- Best of both architectures
+---
 
 ### 5. Dynamic Few-Shot Learning
-
-**Workflow**:
 
 ```python
 # User gives 👍 to a good answer
@@ -375,7 +238,7 @@ prompt = f"{examples}\n\nQuestion: {new_query}\nAnswer:"
 **Benefits**:
 - Continuous improvement without retraining
 - Domain-specific knowledge accumulation
-- Reduces hallucinations
+- Reduces hallucinations over time
 
 ---
 
@@ -383,26 +246,25 @@ prompt = f"{examples}\n\nQuestion: {new_query}\nAnswer:"
 
 ### Benchmark Results
 
-| Metric | Standard RAG | Self-Healing RAG | Improvement |
-|--------|--------------|------------------|-------------|
+| Metric | Standard RAG | Autonomous RAG | Improvement |
+|---|---|---|---|
 | Accuracy | 68% | 87% | +28% |
 | Recall@10 | 72% | 91% | +26% |
 | Precision | 61% | 83% | +36% |
-| User Satisfaction | 3.2/5 | 4.6/5 | +44% |
-
-### Processing Time
-
-- Simple Query: ~1.5s
-- Complex Query (with decomposition): ~3.2s
-- With Web Fallback: ~4.5s
+| User Satisfaction | 3.2 / 5 | 4.6 / 5 | +44% |
 
 ### Component Latency
 
-- HyDE Generation: ~500ms
-- Vector Retrieval: ~50ms
-- CRAG Validation: ~800ms
-- Cross-Encoder Reranking: ~200ms
-- Answer Generation: ~1.2s
+| Component | Latency |
+|---|---|
+| HyDE Generation | ~500ms |
+| Vector Retrieval | ~50ms |
+| CRAG Validation | ~800ms |
+| Cross-Encoder Reranking | ~200ms |
+| Answer Generation | ~1.2s |
+| Simple Query (total) | ~1.5s |
+| Complex Query with Decomposition | ~3.2s |
+| With Web Fallback | ~4.5s |
 
 ---
 
@@ -410,9 +272,8 @@ prompt = f"{examples}\n\nQuestion: {new_query}\nAnswer:"
 
 ### Query Endpoint
 
-```bash
+```json
 POST /api/query
-Content-Type: application/json
 
 {
   "query": "How does CRAG work?",
@@ -428,7 +289,7 @@ Content-Type: application/json
 ```json
 {
   "query": "How does CRAG work?",
-  "answer": "CRAG (Corrective RAG) is a self-correction...",
+  "answer": "CRAG (Corrective RAG) is a self-correction mechanism...",
   "processing_time": 2.34,
   "techniques_used": ["HyDE", "CRAG", "Cross-Encoder"],
   "documents_retrieved": 10,
@@ -438,9 +299,8 @@ Content-Type: application/json
 
 ### Feedback Endpoint
 
-```bash
+```json
 POST /api/feedback
-Content-Type: application/json
 
 {
   "query": "How does CRAG work?",
@@ -451,12 +311,9 @@ Content-Type: application/json
 
 ### Statistics Endpoint
 
-```bash
-GET /api/statistics
-```
-
-**Response**:
 ```json
+GET /api/statistics
+
 {
   "system_stats": {
     "total_queries": 45,
@@ -473,78 +330,34 @@ GET /api/statistics
 
 ---
 
-## Testing
+## Areas of Interest
 
-### Unit Tests
-
-```bash
-# Test individual components
-pytest backend/tests/test_hyde.py
-pytest backend/tests/test_crag.py
-pytest backend/tests/test_reranker.py
-```
-
-### Integration Tests
-
-```bash
-# Test full pipeline
-pytest backend/tests/test_integration.py
-```
-
-### Frontend Tests
-
-```bash
-cd frontend
-npm run test
-```
+- **Vector database integration** — swap in-memory index for Pinecone, Weaviate, or Qdrant
+- **Streaming responses** — real-time token streaming from the generation layer
+- **DSPy optimization** — automatic prompt optimization across pipeline stages
+- **Multi-language support** — extend retrieval and reranking to non-English corpora
+- **Domain fine-tuning** — fine-tune cross-encoders on specific knowledge domains
+- **Evaluation harness** — integrate RAGAS or TruLens for automated quality measurement
+- **Observability** — Prometheus metrics and Grafana dashboards for pipeline monitoring
+- **Auth layer** — add authentication for multi-tenant deployments
 
 ---
 
-## Production Deployment
+## Stack
 
-### Recommendations
+| Layer | Technology |
+|---|---|
+| Backend | Python, FastAPI |
+| Frontend | React 18, Vite |
+| Embeddings | Bi-Encoder (sentence-transformers) |
+| Reranking | Cross-Encoder |
+| Generation | OpenAI API |
+| Web Fallback | Tavily Search API |
 
-1. **Vector Database**: Replace in-memory index with Pinecone/Weaviate
-2. **Caching**: Cache HyDE hypothetical documents
-3. **Rate Limiting**: Implement API rate limits
-4. **Monitoring**: Add Prometheus/Grafana metrics
-5. **Scaling**: Use Redis for session management
-6. **Security**: Add authentication/authorization
-
-### Docker Deployment
-
-```bash
-docker-compose up -d
-```
-
-## Contributing
-
-Contributions are welcome! Areas for improvement:
-
-- [ ] Add support for more embedding models
-- [ ] Implement DSPy automatic optimization
-- [ ] Add streaming responses
-- [ ] Multi-language support
-- [ ] Fine-tuning cross-encoders on domain data
+---
 
 ## License
 
-MIT License - see LICENSE file for details
-
-
-## Support
-
-For questions or issues:
-- Create an issue on GitHub
-- Check the documentation in the app
-- Review the interactive architecture diagrams
+MIT License — see `LICENSE` for details.
 
 ---
-
-<div align="center">
-
-**Built for technical audiences who demand production-ready RAG systems**
-
-⭐ Star this repo if you find it useful!
-
-</div>
