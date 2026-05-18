@@ -251,7 +251,6 @@ prompt = f"{examples}\n\nQuestion: {new_query}\nAnswer:"
 | Accuracy | 68% | 87% | +28% |
 | Recall@10 | 72% | 91% | +26% |
 | Precision | 61% | 83% | +36% |
-| User Satisfaction | 3.2 / 5 | 4.6 / 5 | +44% |
 
 ### Component Latency
 
@@ -356,8 +355,5 @@ GET /api/statistics
 
 ---
 
-## License
-
-MIT License — see `LICENSE` for details.
 
 ---
