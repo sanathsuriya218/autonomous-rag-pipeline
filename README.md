@@ -37,25 +37,49 @@ The system learns from user feedback. Positive signals get stored and surfaced a
 ## Architecture
 
 
-User Query
-│
-▼
-Query Enhancement (HyDE + Decomposition)
-│
-▼
-Bi-Encoder Retrieval → Top 50 candidates
-│
-▼
-CRAG Validation → Correct / Refine / Web Search
-│
-▼
-Cross-Encoder Reranking → Top 5
-│
-▼
-LLM Generation (with dynamic few-shot examples)
-│
-▼
-User Feedback → Learning Store → Future Queries
+````
+```
+┌─────────────────────────────────┐
+│           User Query            │
+└────────────────┬────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  Query Enhancement              │
+│  HyDE + Decomposition           │
+└────────────────┬────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  Bi-Encoder Retrieval           │
+│  Top 50 candidates              │
+└────────────────┬────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  CRAG Validation                │
+│  Correct / Refine / Web Search  │
+└────────────────┬────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  Cross-Encoder Reranking        │
+│  Top 5                          │
+└────────────────┬────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  LLM Generation                 │
+│  Dynamic Few-Shot Examples      │
+└────────────────┬────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  User Feedback                  │
+│  Learning Store → Future Query  │
+└─────────────────────────────────┘
+```
+````
 
 ---
 
