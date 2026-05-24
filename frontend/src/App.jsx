@@ -34,7 +34,7 @@ function App() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-2 text-sm">
               <div className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
                 ● System Online
@@ -56,9 +56,10 @@ function App() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`
                     flex items-center space-x-2 px-6 py-3 font-medium transition-all
-                    ${activeTab === tab.id
-                      ? 'border-b-2 border-blue-500 text-blue-400 bg-blue-500/10'
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+                    ${
+                      activeTab === tab.id
+                        ? 'border-b-2 border-blue-500 text-blue-400 bg-blue-500/10'
+                        : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
                     }
                   `}
                 >
@@ -76,36 +77,19 @@ function App() {
         <div className={`fade-in ${activeTab === 'playground' ? '' : 'hidden'}`}>
           <Playground />
         </div>
+
         <div className={`fade-in ${activeTab === 'architecture' ? '' : 'hidden'}`}>
           <Architecture />
         </div>
+
         <div className={`fade-in ${activeTab === 'documentation' ? '' : 'hidden'}`}>
           <Documentation />
         </div>
+
         <div className={`fade-in ${activeTab === 'statistics' ? '' : 'hidden'}`}>
           <Statistics />
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-700 bg-gray-900/50 mt-12">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-center text-sm text-gray-400">
-            <p className="flex items-center gap-2">
-              Built by{' '}
-              <a 
-                href="https://aianytime.net" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 transition-colors font-semibold"
-              >
-                AI Anytime
-              </a>
-              {' '}with ❤️
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
